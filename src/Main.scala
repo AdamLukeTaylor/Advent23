@@ -11,9 +11,9 @@ object Main {
 
     val source = scala.io.Source.fromFile(file)
     val lines = try source.mkString finally source.close()
-    println("Raw---")
-    println(lines)
-    println("---")
+//    println("Raw---")
+//    println(lines)
+//    println("---")
     lines
   }
 
