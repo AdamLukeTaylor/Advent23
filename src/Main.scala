@@ -2,8 +2,8 @@ object Main {
   def main(args: Array[String]): Unit = {
     Day4.part1(getFileContent("4", example = true))
     Day4.part1(getFileContent("4", example = false))
-//    Day4.part2(getFileContent("4", example = true))
-//    Day4.part2(getFileContent("4", example = false))
+    Day4.part2(getFileContent("4", example = true))
+    Day4.part2(getFileContent("4", example = false))
   }
 
   private def getFileContent(day: String, example: Boolean): String = {
