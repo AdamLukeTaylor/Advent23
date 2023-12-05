@@ -29,12 +29,41 @@ object Day5 {
 
   def part2(input: String): Unit = {
     println("-----------Part 2---------------")
+    val maps = input.split("\n\n")
+    val mapSeedToSoil = populateFunction(maps(1))
+    val mapSoilToFert = populateFunction(maps(2))
+    val mapFertToWater = populateFunction(maps(3))
+    val mapWaterToLight = populateFunction(maps(4))
+    val mapLightToTemp = populateFunction(maps(5))
+    val mapTempToHumid = populateFunction(maps(6))
+    val mapHumidToLocation = populateFunction(maps(7))
+    val seedsRaw = maps(0).substring(7).split(" ").map(_.toLong).toList
+    println(s"Seedsraw $seedsRaw")
+    val netLocations = seedsRaw.grouped(2).map { plant =>
+      println(s"Plant $plant")
+      val locations = (plant.head to plant.head + plant(1)).zipWithIndex.map {
+        case (seed, idx) =>
+          println(s"$idx of ${plant(1)}")
+          val soil = lookUp(mapSeedToSoil, seed)
+          val fert = lookUp(mapSoilToFert, soil)
+          val water = lookUp(mapFertToWater, fert)
+          val light = lookUp(mapWaterToLight, water)
+          val temp = lookUp(mapLightToTemp, light)
+          val humid = lookUp(mapTempToHumid, temp)
+          val location = lookUp(mapHumidToLocation, humid)
+          println(s"$seed -> $soil -> $fert -> $water -> $light -> $temp ->$humid -> $location")
+          location
+      }.toList
+      locations
+    }.toList
+    println(netLocations)
+    println(netLocations.flatten.min)
     println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
   }
 
   def lookUp(functions: List[Function], item: Long): Long = {
     val returns = functions.flatMap { func =>
-      if(item >= func.start && item < func.end) Some(item + func.adjust)
+      if (item >= func.start && item < func.end) Some(item + func.adjust)
       else None
     }
     returns.length match {
