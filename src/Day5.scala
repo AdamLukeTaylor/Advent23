@@ -38,26 +38,29 @@ object Day5 {
     val mapTempToHumid = populateFunction(maps(6))
     val mapHumidToLocation = populateFunction(maps(7))
     val seedsRaw = maps(0).substring(7).split(" ").map(_.toLong).toList
+    println(mapSeedToSoil)
+    println(mapSoilToFert)
     println(s"Seedsraw $seedsRaw")
     val netLocations = seedsRaw.grouped(2).map { plant =>
       println(s"Plant $plant")
-      val locations = (plant.head to plant.head + plant(1)).zipWithIndex.map {
-        case (seed, idx) =>
-          println(s"$idx of ${plant(1)}")
-          val soil = lookUp(mapSeedToSoil, seed)
+      var locationMin = Long.MaxValue
+      for( a<- plant.head to plant.head + plant(1)) {
+          val soil = lookUp(mapSeedToSoil, a)
           val fert = lookUp(mapSoilToFert, soil)
           val water = lookUp(mapFertToWater, fert)
           val light = lookUp(mapWaterToLight, water)
           val temp = lookUp(mapLightToTemp, light)
           val humid = lookUp(mapTempToHumid, temp)
           val location = lookUp(mapHumidToLocation, humid)
-          println(s"$seed -> $soil -> $fert -> $water -> $light -> $temp ->$humid -> $location")
-          location
-      }.toList
-      locations
+//          println(s"$a -> $soil -> $fert -> $water -> $light -> $temp ->$humid -> $location")
+          if(location< locationMin) {
+            locationMin = location
+          }
+      }
+      locationMin
     }.toList
     println(netLocations)
-    println(netLocations.flatten.min)
+    println(netLocations.min)
     println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
   }
 
@@ -72,6 +75,18 @@ object Day5 {
       case _ => ???
     }
   }
+  
+//  def combineFunctions(before: List[Function], after: List[Function]): List[Function] = {
+//    after.map{aft =>
+//      before.foreach{bef =>
+//        if((bef.start <= aft.start && bef.end > aft.start)||(bef.start <= aft.end && bef.end > aft.end)){
+//          //over lap
+//          List(Function(start = Math.min(bef.start, aft.start), end = ???, adjust = ???))
+//        }
+//
+//      }
+//    }
+//  }
 
   def populateFunction(input: String): List[Function] = {
     input.split("\n").flatMap { line =>

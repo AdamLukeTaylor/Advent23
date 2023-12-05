@@ -3,7 +3,7 @@ object Main {
 //    Day5.part1(getFileContent("5", example = true))
 //    Day5.part1(getFileContent("5", example = false))
     Day5.part2(getFileContent("5", example = true))
-//    Day5.part2(getFileContent("5", example = false))
+    Day5.part2(getFileContent("5", example = false))
   }
 
   private def getFileContent(day: String, example: Boolean): String = {
