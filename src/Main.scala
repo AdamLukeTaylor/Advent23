@@ -1,7 +1,7 @@
 object Main {
   def main(args: Array[String]): Unit = {
-    Day9.part1(getFileContent("9", example = true))
-    Day9.part1(getFileContent("9", example = false))
+//    Day9.part1(getFileContent("9", example = true))
+//    Day9.part1(getFileContent("9", example = false))
 
     Day9.part2(getFileContent("9", example = true))
     Day9.part2(getFileContent("9", example = false))
