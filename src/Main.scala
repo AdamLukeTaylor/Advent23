@@ -1,10 +1,12 @@
 object Main {
   def main(args: Array[String]): Unit = {
-//    Day9.part1(getFileContent("9", example = true))
-//    Day9.part1(getFileContent("9", example = false))
+    Day10.part1(getFileContent("10_0", example = true))
+    Day10.part1(getFileContent("10_1", example = true))
+    Day10.part1(getFileContent("10_2", example = true))
+    Day10.part1(getFileContent("10", example = false))
 
-    Day9.part2(getFileContent("9", example = true))
-    Day9.part2(getFileContent("9", example = false))
+    Day10.part2(getFileContent("10", example = true))
+    Day10.part2(getFileContent("10", example = false))
   }
 
   private def getFileContent(day: String, example: Boolean): String = {
